@@ -1,7 +1,9 @@
 package com.neppplus.keepthetime_20211121
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -12,6 +14,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.security.MessageDigest
 
 class LoginActivity : BaseActivity() {
 
@@ -26,7 +29,13 @@ class LoginActivity : BaseActivity() {
 
     override fun setupEvents() {
 
-        binding.btnSignUp.setOnClickListener {
+        binding.btnFacebookLogin.setOnClickListener {
+
+//            소셜 로그인 로직 체험험
+
+        }
+
+       binding.btnSignUp.setOnClickListener {
             val myIntent = Intent(mContext, SignUpActivity::class.java)
             startActivity(myIntent)
         }
@@ -92,6 +101,19 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun setValues() {
-
+        getKeyHash()
     }
+
+    fun getKeyHash() {
+        val info = packageManager.getPackageInfo(
+            "com.neppplus.keepthetime_20211121",
+            PackageManager.GET_SIGNATURES
+        )
+        for (signature in info.signatures) {
+            val md: MessageDigest = MessageDigest.getInstance("SHA")
+            md.update(signature.toByteArray())
+            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+        }
+    }
+
 }
