@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.neppplus.keepthetime_20211121.databinding.ActivityMainBinding
 import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import com.neppplus.keepthetime_20211121.utils.ContextUtil
@@ -43,6 +44,13 @@ class MainActivity : BaseActivity() {
                     val basicResponse = response.body()!!
 
                     Log.d("응답내용", basicResponse.data.user.nickname)
+
+                    binding.txtNickname.text = basicResponse.data.user.nickname
+
+//                    사용자의 프사 표시
+
+                    Glide.with(mContext).load(basicResponse.data.user.profileImageURL).into(binding.imgProfile)
+
                 }
 
             }
