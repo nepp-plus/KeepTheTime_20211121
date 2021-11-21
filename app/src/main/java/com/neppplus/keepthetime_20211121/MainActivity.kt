@@ -2,10 +2,16 @@ package com.neppplus.keepthetime_20211121
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20211121.api.ServerAPI
 import com.neppplus.keepthetime_20211121.api.ServerAPIService
 import com.neppplus.keepthetime_20211121.databinding.ActivityMainBinding
+import com.neppplus.keepthetime_20211121.datas.BasicResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : BaseActivity() {
 
@@ -28,6 +34,28 @@ class MainActivity : BaseActivity() {
 
 
 //            2. 서버에 로그인 API 호출 -> Retrofit
+
+            apiService.postRequestLogin(inputEmail, inputPassword).enqueue( object : Callback<BasicResponse> {
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+
+//                    최종 성공 / 실패 여부에 따라 별도 코딩
+                    if (response.isSuccessful) {
+                        val basicResponse =  response.body()!!
+                        Log.d("로그인성공",  basicResponse.message)
+                    }
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                    Toast.makeText(mContext, "서버 연결에 실패했습니다.", Toast.LENGTH_SHORT).show()
+
+                }
+
+            } )
+
 
         }
 
