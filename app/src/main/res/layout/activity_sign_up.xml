@@ -14,12 +14,26 @@
             android:layout_height="wrap_content"
             android:text="아이디" />
 
-        <EditText
-            android:id="@+id/edtEmail"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:hint="이메일양식" />
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="이메일양식" />
+
+            <Button
+                android:id="@+id/btnEmailCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="중복 확인" />
+
+        </LinearLayout>
+
 
 
         <TextView

@@ -2,6 +2,7 @@ package com.neppplus.keepthetime_20211121
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20211121.databinding.ActivitySignUpBinding
@@ -22,6 +23,34 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnEmailCheck.setOnClickListener {
+
+            val inputEmail = binding.edtEmail.text.toString()
+
+            apiService.getRequestDuplCheck("EMAIL", inputEmail).enqueue( object : Callback<BasicResponse> {
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+
+                    if (response.isSuccessful) {
+                        Log.d("회원가입", "사용해도 좋습니다.")
+                    }
+                    else {
+                        Log.d("회원가입", "사용하면 안됩니다.")
+                    }
+
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                }
+
+
+            } )
+
+        }
 
         binding.btnOk.setOnClickListener {
 
