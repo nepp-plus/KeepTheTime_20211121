@@ -40,9 +40,7 @@ interface ServerAPIService {
 //    연습 - 내 정보 가져오기 API
 
     @GET("/user")
-    fun getRequestMyInfo(
-        @Header("X-Http-Token") token: String
-    ) : Call<BasicResponse>
+    fun getRequestMyInfo() : Call<BasicResponse>
 
 
 }

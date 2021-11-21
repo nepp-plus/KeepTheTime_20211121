@@ -1,5 +1,8 @@
 package com.neppplus.keepthetime_20211121.api
 
+import android.content.Context
+import com.neppplus.keepthetime_20211121.utils.ContextUtil
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,14 +22,30 @@ class ServerAPI {
 
         private var retrofit: Retrofit? = null  // 처음에는 없다. -> 하나만 만들고 이 변수를 공유.
 
-        fun getRetrofit() : Retrofit {
+        fun getRetrofit(context: Context) : Retrofit {
 
             if (retrofit == null) {
 
 //                통신 담당객체 아직 없으면 -> 그때만 새로 만들자.
 
+//                API 요청을 만들면 -> 가로채서, 헤더를 추가해주자. -> 추가하고 나서 나머지 API 요청 실행.
+//                  자동으로 헤더 달아두는 효과 발생.
+
+                val interceptor = Interceptor {
+                    with(it) {
+
+                        val newRequest = request().newBuilder()
+                            .addHeader("X-Http-Token", ContextUtil.getToken(context))
+                            .build()
+
+                        proceed(newRequest)
+
+                    }
+                }
+
+
 //                통신 클라이언트 필요.
-                val myClient = OkHttpClient.Builder().build()  // 나중에 가공을 대비해서 Builder로 만들자.
+                val myClient = OkHttpClient.Builder().addInterceptor(interceptor).build()  // 요청을 전부 가로채서 -> 헤더를 항상 첨부하게.
 
 //                비어있는 retrofit 객체 생성
 

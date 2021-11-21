@@ -21,7 +21,7 @@ abstract class BaseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mContext = requireContext()
 
-        retrofit = ServerAPI.getRetrofit()
+        retrofit = ServerAPI.getRetrofit(mContext)
         apiService = retrofit.create(ServerAPIService::class.java)
     }
 

@@ -37,14 +37,14 @@ class MainActivity : BaseActivity() {
 
         binding.mainTabLayout.setupWithViewPager(  binding.mainViewPager  )
 
-        getMyInfoFromServer()
+//        getMyInfoFromServer()
     }
 
 //    연습 -  내 정보를 서버에서 받아오기 (GET / Header 첨부)
 
     fun getMyInfoFromServer() {
 
-        apiService.getRequestMyInfo(ContextUtil.getToken(mContext)).enqueue( object : Callback<BasicResponse> {
+        apiService.getRequestMyInfo().enqueue( object : Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
                 if (response.isSuccessful) {
