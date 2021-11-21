@@ -33,6 +33,7 @@ class MyProfileFragment : BaseFragment() {
 
 //        1. 프래그먼트에서 retrofit 어떻게 활용?
 
+
 //        2. dataBinding ->  프래그먼트에서는 어떻게 데이터바인딩?
 
     }
