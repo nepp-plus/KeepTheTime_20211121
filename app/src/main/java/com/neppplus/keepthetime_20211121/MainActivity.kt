@@ -3,6 +3,8 @@ package com.neppplus.keepthetime_20211121
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.neppplus.keepthetime_20211121.api.ServerAPI
+import com.neppplus.keepthetime_20211121.api.ServerAPIService
 import com.neppplus.keepthetime_20211121.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity() {
@@ -26,6 +28,8 @@ class MainActivity : BaseActivity() {
 
 
 //            2. 서버에 로그인 API 호출 -> Retrofit
+
+
 
         }
 
