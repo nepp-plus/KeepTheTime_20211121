@@ -29,8 +29,6 @@ class MainActivity : BaseActivity() {
 
 //            2. 서버에 로그인 API 호출 -> Retrofit
 
-
-
         }
 
     }
