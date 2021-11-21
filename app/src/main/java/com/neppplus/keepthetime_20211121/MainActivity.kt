@@ -51,6 +51,8 @@ class MainActivity : BaseActivity() {
                     if (response.isSuccessful) {
                         val basicResponse =  response.body()!!
                         Log.d("로그인성공",  basicResponse.message)
+
+                        Log.d("사용자토큰", basicResponse.data.token)
                     }
                 }
 
