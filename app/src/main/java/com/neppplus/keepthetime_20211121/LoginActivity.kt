@@ -64,6 +64,20 @@ class LoginActivity : BaseActivity() {
                         response: Response<BasicResponse>
                     ) {
 
+                        if ( response.isSuccessful ) {
+
+                            val br = response.body()!!
+
+                            Log.d("앱서버토큰", br.data.token)
+                            ContextUtil.setToken(mContext,  br.data.token)
+
+                            val myIntent = Intent(mContext, MainActivity::class.java)
+                            startActivity(myIntent)
+
+                            finish()
+
+                        }
+
                     }
 
                     override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
@@ -150,6 +164,20 @@ class LoginActivity : BaseActivity() {
                                     call: Call<BasicResponse>,
                                     response: Response<BasicResponse>
                                 ) {
+
+                                    if ( response.isSuccessful ) {
+
+                                        val br = response.body()!!
+
+                                        Log.d("앱서버토큰", br.data.token)
+                                        ContextUtil.setToken(mContext,  br.data.token)
+
+                                        val myIntent = Intent(mContext, MainActivity::class.java)
+                                        startActivity(myIntent)
+
+                                        finish()
+
+                                    }
 
                                 }
 
