@@ -57,6 +57,12 @@ interface ServerAPIService {
         @Query("nickname") nickname: String,
     ) : Call<BasicResponse>
 
+    @FormUrlEncoded
+    @POST("/user/friend")
+    fun postRequestAddFriend(
+        @Field("user_id") id: Int,
+    ) : Call<BasicResponse>
+
 
 //    연습 - 내 정보 가져오기 API
 

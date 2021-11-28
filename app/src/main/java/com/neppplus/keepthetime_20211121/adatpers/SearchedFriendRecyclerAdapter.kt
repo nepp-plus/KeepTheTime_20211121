@@ -7,10 +7,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.neppplus.keepthetime_20211121.AddFriendActivity
 import com.neppplus.keepthetime_20211121.R
+import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import com.neppplus.keepthetime_20211121.datas.UserData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchedFriendRecyclerAdapter(val mContext: Context, val mList: List<UserData>) : RecyclerView.Adapter<SearchedFriendRecyclerAdapter.SearchedUserViewHolder>() {
 
@@ -24,6 +30,35 @@ class SearchedFriendRecyclerAdapter(val mContext: Context, val mList: List<UserD
 
             txtNickname.text = data.nickname
             Glide.with(mContext).load(data.profileImageURL).into(imgProfile)
+
+//            이벤트 처리
+
+            btnAddFriend.setOnClickListener {
+
+//                친구 추가 API 호출 -> 어댑터 내부에서 호출
+
+//                화면 : mContext (Context)  => 실제 담긴것 : AddFriendActivity
+
+                (mContext as AddFriendActivity).apiService.postRequestAddFriend(data.id).enqueue( object : Callback<BasicResponse> {
+                    override fun onResponse(
+                        call: Call<BasicResponse>,
+                        response: Response<BasicResponse>
+                    ) {
+
+                        if (response.isSuccessful) {
+                            Toast.makeText(mContext, "친구 추가에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                    }
+
+                } )
+
+
+            }
 
         }
 
