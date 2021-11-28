@@ -46,6 +46,11 @@ interface ServerAPIService {
     ) : Call<BasicResponse>
 
 
+    @GET("/user/friend")
+    fun getRequestMyFriends(
+        @Query("type") type: String,
+    ) : Call<BasicResponse>
+
 
 //    연습 - 내 정보 가져오기 API
 
