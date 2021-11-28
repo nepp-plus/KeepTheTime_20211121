@@ -6,7 +6,69 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent"
+        android:padding="10dp"
         tools:context=".EditAppointmentActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="약속 제목" />
+
+        <EditText
+            android:id="@+id/edtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="약속 제목을 입력하세요."
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="약속 일시" />
+
+        <EditText
+            android:id="@+id/edtDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="일시 - yyyy-MM-dd HH:mm"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="약속 장소" />
+
+        <EditText
+            android:id="@+id/edtPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="장소 이름 (메모)"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="약속 장소 위도 경도값" />
+
+        <EditText
+            android:id="@+id/edtLatitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="위도값 - 37.1234561 등"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/edtLongitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="경도값 - 127.56487123 등"
+            android:inputType="number"/>
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="약속 등록" />
 
     </LinearLayout>
 </layout>
