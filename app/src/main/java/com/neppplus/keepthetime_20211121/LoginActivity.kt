@@ -135,15 +135,37 @@ class LoginActivity : BaseActivity() {
 
 //                    이 토큰을 이용해서 -> 페북에서 사용자 정보도 받아오자. => 페북 클래스 : GraphRequest
 
-                    GraphRequest.newMeRequest(result?.accessToken, object : GraphRequest.GraphJSONObjectCallback {
+                    val graphRequest =  GraphRequest.newMeRequest(result?.accessToken, object : GraphRequest.GraphJSONObjectCallback {
 
                         override fun onCompleted(jsonObj: JSONObject?, response: GraphResponse?) {
 
                             Log.d("내정보",  jsonObj.toString())
-                            Log.d("내정보응답",  response.toString())
+
+                            val uid = jsonObj!!.getString("id")
+                            val name = jsonObj.getString("name")
+
+//                            페북 로그인에서 받은 내 정보 -> 앱 서버 소셜로그인 기능 호출
+                            apiService.postRequestSocialLogin("facebook", uid, name).enqueue(  object : Callback<BasicResponse> {
+                                override fun onResponse(
+                                    call: Call<BasicResponse>,
+                                    response: Response<BasicResponse>
+                                ) {
+
+                                }
+
+                                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                                }
+
+
+                            } )
+
                         }
 
                     })
+
+//                    내 정보 받아오기 실행
+                    graphRequest.executeAsync()
 
                 }
 
