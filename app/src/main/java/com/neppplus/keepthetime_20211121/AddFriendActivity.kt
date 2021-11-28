@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.neppplus.keepthetime_20211121.adatpers.SearchedFriendRecyclerAdapter
 import com.neppplus.keepthetime_20211121.databinding.ActivityAddFriendBinding
 import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import com.neppplus.keepthetime_20211121.datas.UserData
@@ -16,6 +18,7 @@ class AddFriendActivity : BaseActivity() {
     lateinit var binding: ActivityAddFriendBinding
 
     val mSearchedUserList = ArrayList<UserData>()
+    lateinit var mAdapter: SearchedFriendRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,8 @@ class AddFriendActivity : BaseActivity() {
 
                         mSearchedUserList.addAll( br.data.users )
 
+                        mAdapter.notifyDataSetChanged()
+
                     }
                 }
 
@@ -67,6 +72,10 @@ class AddFriendActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        mAdapter = SearchedFriendRecyclerAdapter( mContext, mSearchedUserList )
+        binding.searchFriendRecyclerView.adapter = mAdapter
+        binding.searchFriendRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
     }
 }
