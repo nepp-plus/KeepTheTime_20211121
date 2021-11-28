@@ -14,6 +14,7 @@ import com.neppplus.keepthetime_20211121.ViewFriendListActivity
 import com.neppplus.keepthetime_20211121.databinding.FragmentMyProfileBinding
 import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import com.neppplus.keepthetime_20211121.utils.ContextUtil
+import com.neppplus.keepthetime_20211121.utils.GlobalData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,7 +53,10 @@ class MyProfileFragment : BaseFragment() {
 
 //        내 정보를 서버에서 받아오자. -> 이미지 반영 / 닉네임 반영
 
-        getMyInfoFromServer()
+        binding.txtNickname.text = GlobalData.loginUser!!.nickname
+        Glide.with(mContext).load( GlobalData.loginUser!!.profileImageURL ).into(binding.imgProfile)
+
+//        getMyInfoFromServer()
 
 //        1. 프래그먼트에서 retrofit 어떻게 활용?
 
