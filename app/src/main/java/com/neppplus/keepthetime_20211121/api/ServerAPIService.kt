@@ -63,6 +63,13 @@ interface ServerAPIService {
         @Field("user_id") id: Int,
     ) : Call<BasicResponse>
 
+    @FormUrlEncoded
+    @PUT("/user/friend")
+    fun putRequestAcceptOrDenyFriendRequest(
+        @Field("user_id") id: Int,
+        @Field("type") type: String,
+    ) : Call<BasicResponse>
+
 
 //    연습 - 내 정보 가져오기 API
 

@@ -8,10 +8,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.neppplus.keepthetime_20211121.R
+import com.neppplus.keepthetime_20211121.ViewFriendListActivity
+import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import com.neppplus.keepthetime_20211121.datas.UserData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RequestedFriendsRecyclerAdapter(val mContext: Context, val mList: List<UserData>) : RecyclerView.Adapter<RequestedFriendsRecyclerAdapter.RequestedFriendViewHolder>() {
 
@@ -29,8 +35,28 @@ class RequestedFriendsRecyclerAdapter(val mContext: Context, val mList: List<Use
 
             val ocl = View.OnClickListener {
 
-                Log.d("친구요청목록",  "버튼 눌림!")
-                Log.d("친구요청목록",  it.tag.toString() )
+                val tag = it.tag.toString()
+
+                (mContext as ViewFriendListActivity)
+                    .apiService
+                    .putRequestAcceptOrDenyFriendRequest(data.id, tag)
+                    .enqueue( object : Callback<BasicResponse> {
+                    override fun onResponse(
+                        call: Call<BasicResponse>,
+                        response: Response<BasicResponse>
+                    ) {
+                        if (response.isSuccessful) {
+
+                            Toast.makeText(mContext, "친구요청에 응답했습니다.", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                    }
+
+                } )
 
             }
 
