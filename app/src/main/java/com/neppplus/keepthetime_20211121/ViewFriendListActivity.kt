@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.neppplus.keepthetime_20211121.adatpers.MyFriendsAdapter
 import com.neppplus.keepthetime_20211121.adatpers.MyFriendsRecyclerAdapter
+import com.neppplus.keepthetime_20211121.adatpers.RequestedFriendsRecyclerAdapter
 import com.neppplus.keepthetime_20211121.databinding.ActivityViewFriendListBinding
 import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import com.neppplus.keepthetime_20211121.datas.UserData
@@ -20,7 +21,8 @@ class ViewFriendListActivity : BaseActivity() {
     lateinit var binding: ActivityViewFriendListBinding
 
     val mMyFriendsList = ArrayList<UserData>()
-    lateinit var mMyFriendsAdapter:  MyFriendsRecyclerAdapter
+//    lateinit var mMyFriendsAdapter:  MyFriendsRecyclerAdapter
+    lateinit var mRequestedFriendsAdapter: RequestedFriendsRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +47,9 @@ class ViewFriendListActivity : BaseActivity() {
 
         getMyFriendsFromServer()
 
-        mMyFriendsAdapter =  MyFriendsRecyclerAdapter(mContext, mMyFriendsList)
-        binding.myFriendsRecyclerView.adapter =  mMyFriendsAdapter
+//        mMyFriendsAdapter =  MyFriendsRecyclerAdapter(mContext, mMyFriendsList)
+        mRequestedFriendsAdapter = RequestedFriendsRecyclerAdapter(mContext, mMyFriendsList)
+        binding.myFriendsRecyclerView.adapter =  mRequestedFriendsAdapter
 //        여러 형태로 목록 배치 가능. -> 어떤 형태로 보여줄건지? 리싸이클러뷰에 세팅.
         binding.myFriendsRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
@@ -54,7 +57,7 @@ class ViewFriendListActivity : BaseActivity() {
 
     fun getMyFriendsFromServer() {
 
-        apiService.getRequestMyFriends("my").enqueue( object : Callback<BasicResponse> {
+        apiService.getRequestMyFriends("requested").enqueue( object : Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
                 if (response.isSuccessful) {
@@ -62,7 +65,7 @@ class ViewFriendListActivity : BaseActivity() {
                     val br = response.body()!!
 
                     mMyFriendsList.addAll( br.data.friends )
-                    mMyFriendsAdapter.notifyDataSetChanged()
+                    mRequestedFriendsAdapter.notifyDataSetChanged()
 
                 }
 
