@@ -52,6 +52,9 @@ class AddFriendActivity : BaseActivity() {
 
                         val br = response.body()!!
 
+//                        기존 검색 목록은 전부 삭제
+                        mSearchedUserList.clear()
+
 //                        검색된 사용자 목록을 -> 멤버변수 ArrayList에 추가
 
                         mSearchedUserList.addAll( br.data.users )
