@@ -16,6 +16,7 @@ import com.kakao.sdk.user.UserApiClient
 import com.neppplus.keepthetime_20211121.databinding.ActivityLoginBinding
 import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import com.neppplus.keepthetime_20211121.utils.ContextUtil
+import com.neppplus.keepthetime_20211121.utils.GlobalData
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,6 +71,10 @@ class LoginActivity : BaseActivity() {
 
                             Log.d("앱서버토큰", br.data.token)
                             ContextUtil.setToken(mContext,  br.data.token)
+
+//                            로그인한 사람 GlobalData
+
+                            GlobalData.loginUser = br.data.user
 
                             val myIntent = Intent(mContext, MainActivity::class.java)
                             startActivity(myIntent)
@@ -172,6 +177,11 @@ class LoginActivity : BaseActivity() {
                                         Log.d("앱서버토큰", br.data.token)
                                         ContextUtil.setToken(mContext,  br.data.token)
 
+
+//                            로그인한 사람 GlobalData
+
+                                        GlobalData.loginUser = br.data.user
+
                                         val myIntent = Intent(mContext, MainActivity::class.java)
                                         startActivity(myIntent)
 
@@ -236,6 +246,11 @@ class LoginActivity : BaseActivity() {
                         val basicResponse =  response.body()!!
 
                         ContextUtil.setToken(mContext, basicResponse.data.token)
+
+
+//                            로그인한 사람 GlobalData
+
+                        GlobalData.loginUser = basicResponse.data.user
 
                         Toast.makeText(
                             mContext,
