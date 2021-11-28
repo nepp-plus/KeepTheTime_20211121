@@ -37,6 +37,16 @@ interface ServerAPIService {
     ) : Call<BasicResponse>
 
 
+    @FormUrlEncoded
+    @POST("/user/social")
+    fun postRequestSocialLogin(
+        @Field("provider") provider: String,
+        @Field("uid") uid: String,
+        @Field("nick_name") nickname: String,
+    ) : Call<BasicResponse>
+
+
+
 //    연습 - 내 정보 가져오기 API
 
     @GET("/user")
