@@ -13,16 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KeepTheTime_20211121">
         <activity
+            android:name=".AddFriendActivity"
+            android:exported="true" />
+        <activity
             android:name=".SplashActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:exported="true" >
-
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ViewFriendListActivity"
@@ -35,8 +36,7 @@
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
