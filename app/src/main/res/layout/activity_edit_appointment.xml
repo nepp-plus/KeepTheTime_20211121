@@ -55,14 +55,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="위도값 - 37.1234561 등"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/edtLongitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="경도값 - 127.56487123 등"
-            android:inputType="number"/>
+            android:inputType="numberDecimal"/>
 
         <Button
             android:id="@+id/btnOk"
