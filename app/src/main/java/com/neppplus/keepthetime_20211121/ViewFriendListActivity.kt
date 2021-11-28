@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.neppplus.keepthetime_20211121.adatpers.MyFriendsAdapter
 import com.neppplus.keepthetime_20211121.adatpers.MyFriendsRecyclerAdapter
 import com.neppplus.keepthetime_20211121.databinding.ActivityViewFriendListBinding
@@ -37,6 +38,8 @@ class ViewFriendListActivity : BaseActivity() {
 
         mMyFriendsAdapter =  MyFriendsRecyclerAdapter(mContext, mMyFriendsList)
         binding.myFriendsRecyclerView.adapter =  mMyFriendsAdapter
+//        여러 형태로 목록 배치 가능. -> 어떤 형태로 보여줄건지? 리싸이클러뷰에 세팅.
+        binding.myFriendsRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
     }
 
