@@ -132,7 +132,17 @@ class EditAppointmentActivity : BaseActivity() {
 
 //            입력값 검증. (vaildation)
 
-//            1. 선택된 일시 (mSelectedDateTime)가, 현재 시간보다 더 나중 시간인가?
+//            1. 일자 / 시간을 모두 선택했는지?
+
+            if ( binding.txtDate.text == "날짜 선택" || binding.txtTime.text == "시간 선택" ) {
+
+//                둘중 하나를 아직 입력하지 않은 상황.
+                Toast.makeText(mContext, "약속 일시를 모두 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+
+            }
+
+//            2. 선택된 일시 (mSelectedDateTime)가, 현재 시간보다 더 나중 시간인가?
 //              => 과거의 약속이라면 앱에서 등록 거부.
 
 //            현재시간을 변수에 저장
