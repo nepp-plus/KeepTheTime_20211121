@@ -1,11 +1,13 @@
 package com.neppplus.keepthetime_20211121.api
 
 import android.content.Context
+import com.google.gson.GsonBuilder
 import com.neppplus.keepthetime_20211121.utils.ContextUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class ServerAPI {
 
@@ -47,12 +49,22 @@ class ServerAPI {
 //                통신 클라이언트 필요.
                 val myClient = OkHttpClient.Builder().addInterceptor(interceptor).build()  // 요청을 전부 가로채서 -> 헤더를 항상 첨부하게.
 
+
+//                우리가 지정한 양식의 String이 온다면 => Date형태로 변환해주는 세팅 추가.
+//                파싱에 대한 세팅 추가 => 파싱 : gson이 담당. => gson 세팅.
+
+                val gson = GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                    .registerTypeAdapter( Date::class.java, DateDeserializer() )  // Date형태로 실제 파싱 진행 클래스 추가
+                    .create()
+
+
 //                비어있는 retrofit 객체 생성
 
                 retrofit =  Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(myClient)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson)) // Date를 자동으로 파싱하는 도구를 등록.
                     .build()
 
             }
