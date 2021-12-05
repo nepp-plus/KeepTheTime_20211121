@@ -11,8 +11,13 @@ import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class EditAppointmentActivity : BaseActivity() {
+
+//    약속을 잡을 일시를 저장할 변수 (Calendar)
+
+    val mSelectedDateTime = Calendar.getInstance()  // 기본값 : 현재 일시
 
     lateinit var binding : ActivityEditAppointmentBinding
 
@@ -47,12 +52,14 @@ class EditAppointmentActivity : BaseActivity() {
 
 //            Kotlin : JAVA 기반 언어 => 월 : 0 ~ 11로 만들어져있음.
 
+//            오늘 날짜를 기본으로 띄우도록. => mSelectedDateTime에 저장된 값 활용
+
             val datePickerDialog = DatePickerDialog(
                 mContext,
                 dateSetListener,
-                2021,
-                12,
-                5
+                mSelectedDateTime.get( Calendar.YEAR ),
+                mSelectedDateTime.get( Calendar.MONTH ),
+                mSelectedDateTime.get( Calendar.DAY_OF_MONTH )
             )
 
             datePickerDialog.show()
