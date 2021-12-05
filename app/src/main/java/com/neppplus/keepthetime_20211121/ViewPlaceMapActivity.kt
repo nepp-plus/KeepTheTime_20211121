@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.neppplus.keepthetime_20211121.databinding.ActivityViewPlaceMapBinding
 import com.neppplus.keepthetime_20211121.datas.ScheduleData
@@ -54,6 +55,18 @@ class ViewPlaceMapActivity : BaseActivity() {
             val marker = Marker()
             marker.position = coord
             marker.map = naverMap
+
+//            추가기능 체험 - 정보창 (말풍선) => 마커에 반영
+
+            val infoWindow = InfoWindow()
+            infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext) {
+                override fun getText(p0: InfoWindow): CharSequence {
+                    return "테스트 문구"
+                }
+
+            }
+
+            infoWindow.open(marker)
 
 
         }
