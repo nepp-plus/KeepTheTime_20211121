@@ -8,5 +8,10 @@
         tools:context=".ViewPlaceMapActivity"
         android:orientation="vertical">
 
+        <com.naver.maps.map.MapView
+            android:id="@+id/naverMapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 </layout>
