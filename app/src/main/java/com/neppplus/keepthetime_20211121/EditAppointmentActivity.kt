@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 import com.neppplus.keepthetime_20211121.databinding.ActivityEditAppointmentBinding
 import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import retrofit2.Call
@@ -204,9 +206,22 @@ class EditAppointmentActivity : BaseActivity() {
 //            예시. 카메라를 본인 집근처로 이동
 
 //            위경도 정보=> 카메라 이동 명령을 변수에 저장만.
-            val cameraUpdate = CameraUpdate.scrollTo( LatLng( 37.6204800155854, 126.92165319009378 ) )
+
+            val latLng = LatLng( 37.6204800155854, 126.92165319009378 )
+
+            val cameraUpdate = CameraUpdate.scrollTo( latLng )
 
             naverMap.moveCamera( cameraUpdate )
+
+
+//            마커를 본인 집근처 찍어보기
+
+            val marker = Marker()
+            marker.position = latLng
+            marker.map = naverMap
+
+            marker.icon = OverlayImage.fromResource(R.drawable.custom_map_marker_small)
+
 
         }
 
