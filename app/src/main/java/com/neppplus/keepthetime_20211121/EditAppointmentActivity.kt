@@ -9,6 +9,8 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
 import com.neppplus.keepthetime_20211121.databinding.ActivityEditAppointmentBinding
 import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import retrofit2.Call
@@ -199,6 +201,12 @@ class EditAppointmentActivity : BaseActivity() {
             val naverMap = it
 
 
+//            예시. 카메라를 본인 집근처로 이동
+
+//            위경도 정보=> 카메라 이동 명령을 변수에 저장만.
+            val cameraUpdate = CameraUpdate.scrollTo( LatLng( 37.6204800155854, 126.92165319009378 ) )
+
+            naverMap.moveCamera( cameraUpdate )
 
         }
 
