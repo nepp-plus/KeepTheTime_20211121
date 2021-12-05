@@ -176,6 +176,13 @@ class EditAppointmentActivity : BaseActivity() {
 
             }
 
+//            약속 장소 추가 검증
+
+            if (mSelectedLatLng == null) {
+                Toast.makeText(mContext, "약속 장소를 지도에서 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val inputTitle = binding.edtTitle.text.toString()
 //            val inputDateTime = binding.edtDateTime.text.toString()
 
@@ -186,7 +193,7 @@ class EditAppointmentActivity : BaseActivity() {
 
             val inputPlace = binding.edtPlace.text.toString()
 
-            apiService.postRequestAppointment(inputTitle, finalDateTimeStr, inputPlace, 37.123, 127.123).enqueue( object : Callback<BasicResponse> {
+            apiService.postRequestAppointment(inputTitle, finalDateTimeStr, inputPlace, mSelectedLatLng!!.latitude, mSelectedLatLng!!.longitude).enqueue( object : Callback<BasicResponse> {
                 override fun onResponse(
                     call: Call<BasicResponse>,
                     response: Response<BasicResponse>
