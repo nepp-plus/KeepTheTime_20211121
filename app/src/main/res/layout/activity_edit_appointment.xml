@@ -67,21 +67,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="약속 장소 위도 경도값" />
+            android:text="약속 장소 지도 선택" />
 
-        <EditText
-            android:id="@+id/edtLatitude"
+        <fragment
+            android:id="@+id/naverMap"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="위도값 - 37.1234561 등"
-            android:inputType="numberDecimal" />
-
-        <EditText
-            android:id="@+id/edtLongitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="경도값 - 127.56487123 등"
-            android:inputType="numberDecimal"/>
+            android:layout_height="250dp"
+            android:name="com.naver.maps.map.MapFragment" />
 
         <Button
             android:id="@+id/btnOk"

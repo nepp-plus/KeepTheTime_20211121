@@ -172,10 +172,8 @@ class EditAppointmentActivity : BaseActivity() {
             val finalDateTimeStr =  serverFormat.format( mSelectedDateTime.time )
 
             val inputPlace = binding.edtPlace.text.toString()
-            val inputLat = binding.edtLatitude.text.toString().toDouble()
-            val inputLng = binding.edtLongitude.text.toString().toDouble()
 
-            apiService.postRequestAppointment(inputTitle, finalDateTimeStr, inputPlace, inputLat, inputLng).enqueue( object : Callback<BasicResponse> {
+            apiService.postRequestAppointment(inputTitle, finalDateTimeStr, inputPlace, 37.123, 127.123).enqueue( object : Callback<BasicResponse> {
                 override fun onResponse(
                     call: Call<BasicResponse>,
                     response: Response<BasicResponse>
