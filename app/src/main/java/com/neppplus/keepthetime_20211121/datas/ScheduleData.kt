@@ -1,6 +1,7 @@
 package com.neppplus.keepthetime_20211121.datas
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,7 +16,7 @@ class ScheduleData(
     @SerializedName("created_at")
     var createdAt: Date,
 
-) {
+) : Serializable {
 
 
 

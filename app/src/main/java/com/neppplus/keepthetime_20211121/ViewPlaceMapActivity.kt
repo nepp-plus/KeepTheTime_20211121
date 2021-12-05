@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20211121.databinding.ActivityViewPlaceMapBinding
+import com.neppplus.keepthetime_20211121.datas.ScheduleData
 
 class ViewPlaceMapActivity : BaseActivity() {
 
     lateinit var binding: ActivityViewPlaceMapBinding
+
+    lateinit var mScheduleData : ScheduleData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +25,8 @@ class ViewPlaceMapActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        mScheduleData = intent.getSerializableExtra("schedule") as ScheduleData
 
 //        0. 프로젝트에 네이버지도 설치 (완료)
 
