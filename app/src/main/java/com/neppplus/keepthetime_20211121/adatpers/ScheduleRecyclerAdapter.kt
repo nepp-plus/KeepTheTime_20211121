@@ -23,7 +23,7 @@ class ScheduleRecyclerAdapter(val mContext: Context, val mList: List<ScheduleDat
 
             txtAppointmentTitle.text =  data.title
             txtAppointmentPlace.text = data.place
-//            txtDateTime.text =  data.datetime
+            txtDateTime.text =  data.getFormattedDatetime()
 
         }
 
