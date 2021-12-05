@@ -61,12 +61,40 @@ class ViewPlaceMapActivity : BaseActivity() {
             val infoWindow = InfoWindow()
             infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext) {
                 override fun getText(p0: InfoWindow): CharSequence {
-                    return "테스트 문구"
+                    return mScheduleData.place
                 }
 
             }
 
             infoWindow.open(marker)
+
+            naverMap.setOnMapClickListener { pointF, latLng ->
+
+//                지도 아무데나 클릭하면, 정보창 닫기
+                infoWindow.close()
+
+            }
+
+
+            marker.setOnClickListener {
+
+                if (marker.infoWindow == null) {
+//                    정보창이 안열려있는 상태.
+
+                    infoWindow.open(marker)
+
+                }
+                else {
+//                    이미 정보창이 열린 상태 => 닫아주자.
+
+                    infoWindow.close()
+
+                }
+
+
+                return@setOnClickListener true
+            }
+
 
 
         }
