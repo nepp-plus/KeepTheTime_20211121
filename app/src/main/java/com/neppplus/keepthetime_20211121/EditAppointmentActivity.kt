@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.DatePicker
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20211121.databinding.ActivityEditAppointmentBinding
 import com.neppplus.keepthetime_20211121.datas.BasicResponse
@@ -128,6 +129,29 @@ class EditAppointmentActivity : BaseActivity() {
         }
 
         binding.btnOk.setOnClickListener {
+
+//            입력값 검증. (vaildation)
+
+//            1. 선택된 일시 (mSelectedDateTime)가, 현재 시간보다 더 나중 시간인가?
+//              => 과거의 약속이라면 앱에서 등록 거부.
+
+//            현재시간을 변수에 저장
+            val now = Calendar.getInstance()  // 현재 시간 (클릭된 시간)을 기록
+
+//            두개의 시간을 양으로 변환해서 대소비교.
+
+            if ( mSelectedDateTime.timeInMillis  <  now.timeInMillis ) {
+
+//                약속시간이, 현재시간보다 덜 시간이 흐른 상태. (더 이전 시간)
+
+//                약속시간은 지금보다 미래여야 의미가 있다.
+
+                Toast.makeText(mContext, "약속시간은 더 미래의 시간으로 설정해주세요.", Toast.LENGTH_SHORT).show()
+
+//                이 함수를 강제종료. (서버에 데이터 보내는걸 취소)
+                return@setOnClickListener
+
+            }
 
             val inputTitle = binding.edtTitle.text.toString()
 //            val inputDateTime = binding.edtDateTime.text.toString()
