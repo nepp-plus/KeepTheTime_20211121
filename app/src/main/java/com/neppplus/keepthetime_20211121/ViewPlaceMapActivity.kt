@@ -30,7 +30,18 @@ class ViewPlaceMapActivity : BaseActivity() {
 
 //        2. 네이버 맵 객체를 실제로 얻어내기 -> getMapAsync
 
+        binding.naverMapView.getMapAsync {
+
+            val naverMap = it
+
 //        3. 카메라 이동 / 마커 추가  (받아온 스케쥴의 위도/경도 이용)
+
+
+
+
+        }
+
+
 
 
     }
