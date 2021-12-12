@@ -20,6 +20,7 @@ import com.odsay.odsayandroidsdk.ODsayService
 import com.odsay.odsayandroidsdk.OnResultCallbackListener
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -79,6 +80,11 @@ class EditAppointmentActivity : BaseActivity() {
 
 
 //            3. 1+2+메쏘드+헤더 종합 => Request 만들기
+            val request = Request.Builder()
+                .url( urlString )
+                .get()
+                .header("Authorization", "KakaoAK ${resources.getString(R.string.kakao_api_key)}")
+                .build()
 
 //            4. OkHttpClient를 이용해 실제 카카오 서버 호출
 
