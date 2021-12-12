@@ -13,6 +13,7 @@ import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.PathOverlay
 import com.neppplus.keepthetime_20211121_ckj.databinding.ActivityEditAppointmentBinding
 import com.neppplus.keepthetime_20211121_ckj.datas.BasicResponse
+import com.odsay.odsayandroidsdk.ODsayService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -237,6 +238,7 @@ class EditAppointmentActivity : BaseActivity() {
 
                 mSelectedMarker!!.position = latLng
                 mSelectedMarker!!.map = naverMap
+
 
 //                하나의 지점 (본인 집-startingPoint) 에서 -> 클릭한 지점 (latLng) 까지 선 긋기.
 
