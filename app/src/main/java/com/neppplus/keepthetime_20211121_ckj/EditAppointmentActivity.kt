@@ -3,6 +3,7 @@ package com.neppplus.keepthetime_20211121_ckj
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
@@ -13,7 +14,10 @@ import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.PathOverlay
 import com.neppplus.keepthetime_20211121_ckj.databinding.ActivityEditAppointmentBinding
 import com.neppplus.keepthetime_20211121_ckj.datas.BasicResponse
+import com.odsay.odsayandroidsdk.API
+import com.odsay.odsayandroidsdk.ODsayData
 import com.odsay.odsayandroidsdk.ODsayService
+import com.odsay.odsayandroidsdk.OnResultCallbackListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -240,9 +244,42 @@ class EditAppointmentActivity : BaseActivity() {
                 mSelectedMarker!!.map = naverMap
 
 
+
 //                하나의 지점 (본인 집-startingPoint) 에서 -> 클릭한 지점 (latLng) 까지 선 긋기.
 
                 val startingPoint = LatLng(37.61275604060842, 126.9300471949015)
+
+//                출발지 ~ 도착지까지의 대중교통 정거장 목록을 위경도 추출.
+//                ODSay 라이브러리 설치 => API 활용.
+
+                val myODsayService = ODsayService.init(mContext, resources.getString(R.string.odsay_key))
+
+                myODsayService.requestSearchPubTransPath(
+                    startingPoint.longitude.toString(),
+                    startingPoint.latitude.toString(),
+                    latLng.longitude.toString(),
+                    latLng.latitude.toString(),
+                    null,
+                    null,
+                    null,
+
+                    object : OnResultCallbackListener {
+                        override fun onSuccess(p0: ODsayData?, p1: API?) {
+                            val jsonObj = p0!!.json
+                            Log.d("길찾기응답", jsonObj.toString())
+                        }
+
+                        override fun onError(p0: Int, p1: String?, p2: API?) {
+
+                            Log.d("길찾기에러", p1.toString())
+
+                        }
+
+
+                    }
+
+                )
+
 
 //                선이 그어질 경로 (여러 지점의 연결로 표현)
 

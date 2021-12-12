@@ -305,7 +305,7 @@ class LoginActivity : BaseActivity() {
 
     fun getKeyHash() {
         val info = packageManager.getPackageInfo(
-            "com.neppplus.keepthetime_20211121",
+            "com.neppplus.keepthetime_20211121_ckj",
             PackageManager.GET_SIGNATURES
         )
         for (signature in info.signatures) {
