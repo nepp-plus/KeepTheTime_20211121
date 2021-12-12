@@ -1,6 +1,7 @@
 package com.neppplus.keepthetime_ckj_1121
 
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -121,6 +122,53 @@ class ViewPlaceMapActivity : BaseActivity() {
                 object : OnResultCallbackListener {
                     override fun onSuccess(p0: ODsayData?, p1: API?) {
 
+                        val jsonObj = p0!!.json
+
+                        Log.d("길찾기-지도상세", jsonObj.toString())
+
+//                        지도에 선 긋기 위한 좌표 목록.
+
+                        val transCoords = ArrayList<LatLng>()
+
+//                        첫 좌표 : 출발지를 등록.
+                        transCoords.add( startingPoint )
+
+//                        중간 좌표들 : 대중교통의 정거장 들의 좌표. (API 응답 파싱)
+
+                        val resultObj = jsonObj.getJSONObject("result")
+
+                        val pathArr = resultObj.getJSONArray("path")
+
+
+//                        만약 추천경로가 안나오면 중간 좌표추가 X
+                        if (pathArr.length() > 0 ) {
+
+                            val firstRecommendPath = pathArr.getJSONObject(0)
+                            val subPathArr = firstRecommendPath.getJSONArray("subPath")
+
+//                            세부 경로들 하나씩 꺼내보자 -> 정거장 목록이 있는가? 추가 검사
+
+                            for ( i  in  0 until  subPathArr.length() ) {
+
+                                val subPathObj = subPathArr.getJSONObject(i)
+
+//                                정거장 목록이 null이 아닌가? => 내려주는가?
+
+                                if ( !subPathObj.isNull("passStopList") ) {
+
+//                                    실제 정거장 목록 추출 -> transCoords에 추가 등록
+
+                                }
+
+                            }
+
+                        }
+
+//                        마지막 좌표 : 도착지를 등록.
+
+                        val endPoint = LatLng( mScheduleData.latitude,  mScheduleData.longitude )
+                        transCoords.add( endPoint )
+
                     }
 
                     override fun onError(p0: Int, p1: String?, p2: API?) {
@@ -132,7 +180,7 @@ class ViewPlaceMapActivity : BaseActivity() {
             )
 
 
-            val endPoint = LatLng( mScheduleData.latitude,  mScheduleData.longitude )
+
 
 
 
