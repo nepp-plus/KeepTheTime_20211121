@@ -145,6 +145,7 @@ class EditAppointmentActivity : BaseActivity() {
                         alert.setTitle("약속 장소 선택")
 //                        alert.setMessage("정말 ~~ ?")
 
+                        alert.setView( customView )
 
                         alert.show()
 
