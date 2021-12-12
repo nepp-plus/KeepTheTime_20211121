@@ -4,4 +4,6 @@
     <string name="fb_login_protocol_scheme">fb356025749612278</string>
     <string name="odsay_key">kW9S8k34srd0buqkgPhm53RXXTMD21IRQaxJMm8rNHU</string>
 
+    <string name="kakao_api_key">fb3e6380d75914312f06cb3b9601412a</string>
+
 </resources>
