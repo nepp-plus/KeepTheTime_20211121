@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.neppplus.keepthetime_20211121">
+    package="com.neppplus.keepthetime_20211121_ckj">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".GlobalApplication"
+        android:name="com.neppplus.keepthetime_20211121_ckj.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,16 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KeepTheTime_20211121">
         <activity
-            android:name=".ViewPlaceMapActivity"
+            android:name="com.neppplus.keepthetime_20211121_ckj.ViewPlaceMapActivity"
             android:exported="true" />
         <activity
-            android:name=".EditAppointmentActivity"
+            android:name="com.neppplus.keepthetime_20211121_ckj.EditAppointmentActivity"
             android:exported="true" />
         <activity
-            android:name=".AddFriendActivity"
+            android:name="com.neppplus.keepthetime_20211121_ckj.AddFriendActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.neppplus.keepthetime_20211121_ckj.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
@@ -32,16 +32,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewFriendListActivity"
+            android:name="com.neppplus.keepthetime_20211121_ckj.ViewFriendListActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.neppplus.keepthetime_20211121_ckj.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
+            android:name="com.neppplus.keepthetime_20211121_ckj.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.neppplus.keepthetime_20211121_ckj.LoginActivity"
             android:exported="true" />
 
         <meta-data
