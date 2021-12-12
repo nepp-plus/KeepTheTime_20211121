@@ -8,6 +8,10 @@ import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.neppplus.keepthetime_ckj_1121.databinding.ActivityViewPlaceMapBinding
 import com.neppplus.keepthetime_ckj_1121.datas.ScheduleData
+import com.odsay.odsayandroidsdk.API
+import com.odsay.odsayandroidsdk.ODsayData
+import com.odsay.odsayandroidsdk.ODsayService
+import com.odsay.odsayandroidsdk.OnResultCallbackListener
 
 class ViewPlaceMapActivity : BaseActivity() {
 
@@ -93,6 +97,43 @@ class ViewPlaceMapActivity : BaseActivity() {
 
                 return@setOnClickListener true
             }
+
+//            ODsay 라이브러리 재활용 -> JSON 파싱 => 출발지 ~ 도착지 대중교통 경로 지도에 표시.
+//            복잡한 모양의 JSONObject 직접 파싱 복습 => ~ 12:30분
+
+//            출발지 정보 ~ 도착지 API 호출
+//            or 본인 집 좌표 직접 출발지 지정
+
+            val startingPoint = LatLng(  37.61324219259818, 126.92932036898978  )
+
+//            오디세이 라이브러리로 -> 대중교통 경로 API 호출
+
+            val myODsayService = ODsayService.init(mContext, resources.getString(R.string.odsay_key))
+
+            myODsayService.requestSearchPubTransPath(
+                126.92932036898978.toString(),
+                37.61324219259818.toString(),
+                mScheduleData.longitude.toString(),
+                mScheduleData.latitude.toString(),
+                null,
+                null,
+                null,
+                object : OnResultCallbackListener {
+                    override fun onSuccess(p0: ODsayData?, p1: API?) {
+
+                    }
+
+                    override fun onError(p0: Int, p1: String?, p2: API?) {
+
+                    }
+
+
+                }
+            )
+
+
+            val endPoint = LatLng( mScheduleData.latitude,  mScheduleData.longitude )
+
 
 
 
