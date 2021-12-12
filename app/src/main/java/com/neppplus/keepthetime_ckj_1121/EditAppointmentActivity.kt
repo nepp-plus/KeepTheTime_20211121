@@ -24,6 +24,7 @@ import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -87,6 +88,18 @@ class EditAppointmentActivity : BaseActivity() {
                 .build()
 
 //            4. OkHttpClient를 이용해 실제 카카오 서버 호출
+
+            val client = OkHttpClient()
+            client.newCall(request).enqueue(object : okhttp3.Callback {
+                override fun onFailure(call: okhttp3.Call, e: IOException) {
+//                    연결 실패
+                }
+
+                override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+//                    검색 결과 돌아옴 => 분석 (JSON 파싱) / UI 반영
+                }
+
+            })
 
 
         }
