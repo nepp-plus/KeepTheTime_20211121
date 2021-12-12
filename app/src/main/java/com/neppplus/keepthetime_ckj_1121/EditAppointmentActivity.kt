@@ -23,6 +23,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class EditAppointmentActivity : BaseActivity() {
 
@@ -34,14 +35,13 @@ class EditAppointmentActivity : BaseActivity() {
 //    그 위치를 보여줄 마커 (네이버 - Marker)
 //    처음 화면이 나타날때는, 아직 선택 안한상태. => 위치도 / 마커도 아직 없다. (초기 값 - null)
 
-    var mSelectedLatLng : LatLng? = null
-    var mSelectedMarker : Marker? = null
+    var mSelectedLatLng: LatLng? = null
+    var mSelectedMarker: Marker? = null
 
-    var mPath : PathOverlay? = null
+    var mPath: PathOverlay? = null
 
 
-
-    lateinit var binding : ActivityEditAppointmentBinding
+    lateinit var binding: ActivityEditAppointmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,20 +58,20 @@ class EditAppointmentActivity : BaseActivity() {
 
 //            1. 선택 완료시 할 일 (OnTimeSetListener) 설정 -> 변수에 담아두자.
 
-            val timeSetListener =  object : TimePickerDialog.OnTimeSetListener {
+            val timeSetListener = object : TimePickerDialog.OnTimeSetListener {
                 override fun onTimeSet(p0: TimePicker?, hourOfDay: Int, minute: Int) {
 
 //                    Log.d("선택된시간", "${hourOfDay}시, ${minute}분")
 
 //                    선택한 시간도 실제로 저장
-                    mSelectedDateTime.set( Calendar.HOUR_OF_DAY, hourOfDay  )
-                    mSelectedDateTime.set( Calendar.MINUTE, minute  )
+                    mSelectedDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    mSelectedDateTime.set(Calendar.MINUTE, minute)
 
 //                    선택한 시간을 -> "오후 4:05"   형태로 txtTime에 표시
 //                    SimpleDateFormat 활용.
 
                     val timeFormat = SimpleDateFormat("a h:mm")
-                    val timeStr = timeFormat.format( mSelectedDateTime.time )
+                    val timeStr = timeFormat.format(mSelectedDateTime.time)
 
                     binding.txtTime.text = timeStr
 
@@ -99,7 +99,7 @@ class EditAppointmentActivity : BaseActivity() {
 
 //            선택 완료시 할 일 (JAVA - Interface) 설정 => 변수에 담아두자
 
-            val dateSetListener =  object : DatePickerDialog.OnDateSetListener {
+            val dateSetListener = object : DatePickerDialog.OnDateSetListener {
                 override fun onDateSet(p0: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
 
 //                    실제로 날짜가 선택되면 할 일 적는 공간.
@@ -117,10 +117,10 @@ class EditAppointmentActivity : BaseActivity() {
 
 //                    txtDate 의 문구를 -> 21년 8월 5일 과 같은 양식으로 가공해서 텍스트 세팅.
 
-                    val dateFormat = SimpleDateFormat( "yy년 M월 d일" )
-                    val dateStr =  dateFormat.format( mSelectedDateTime.time )
+                    val dateFormat = SimpleDateFormat("yy년 M월 d일")
+                    val dateStr = dateFormat.format(mSelectedDateTime.time)
 
-                    binding.txtDate.text =  dateStr
+                    binding.txtDate.text = dateStr
 
                 }
 
@@ -136,9 +136,9 @@ class EditAppointmentActivity : BaseActivity() {
             val datePickerDialog = DatePickerDialog(
                 mContext,
                 dateSetListener,
-                mSelectedDateTime.get( Calendar.YEAR ),
-                mSelectedDateTime.get( Calendar.MONTH ),
-                mSelectedDateTime.get( Calendar.DAY_OF_MONTH )
+                mSelectedDateTime.get(Calendar.YEAR),
+                mSelectedDateTime.get(Calendar.MONTH),
+                mSelectedDateTime.get(Calendar.DAY_OF_MONTH)
             )
 
             datePickerDialog.show()
@@ -152,7 +152,7 @@ class EditAppointmentActivity : BaseActivity() {
 
 //            1. 일자 / 시간을 모두 선택했는지?
 
-            if ( binding.txtDate.text == "날짜 선택" || binding.txtTime.text == "시간 선택" ) {
+            if (binding.txtDate.text == "날짜 선택" || binding.txtTime.text == "시간 선택") {
 
 //                둘중 하나를 아직 입력하지 않은 상황.
                 Toast.makeText(mContext, "약속 일시를 모두 선택해주세요.", Toast.LENGTH_SHORT).show()
@@ -168,7 +168,7 @@ class EditAppointmentActivity : BaseActivity() {
 
 //            두개의 시간을 양으로 변환해서 대소비교.
 
-            if ( mSelectedDateTime.timeInMillis  <  now.timeInMillis ) {
+            if (mSelectedDateTime.timeInMillis < now.timeInMillis) {
 
 //                약속시간이, 현재시간보다 덜 시간이 흐른 상태. (더 이전 시간)
 
@@ -194,11 +194,17 @@ class EditAppointmentActivity : BaseActivity() {
 //            mSelectedDateTime에 저장된 약속일시를 => String으로 가공 (SimpleDateFormat) => 서버에 첨부.
 
             val serverFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
-            val finalDateTimeStr =  serverFormat.format( mSelectedDateTime.time )
+            val finalDateTimeStr = serverFormat.format(mSelectedDateTime.time)
 
             val inputPlace = binding.edtPlace.text.toString()
 
-            apiService.postRequestAppointment(inputTitle, finalDateTimeStr, inputPlace, mSelectedLatLng!!.latitude, mSelectedLatLng!!.longitude).enqueue( object : Callback<BasicResponse> {
+            apiService.postRequestAppointment(
+                inputTitle,
+                finalDateTimeStr,
+                inputPlace,
+                mSelectedLatLng!!.latitude,
+                mSelectedLatLng!!.longitude
+            ).enqueue(object : Callback<BasicResponse> {
                 override fun onResponse(
                     call: Call<BasicResponse>,
                     response: Response<BasicResponse>
@@ -229,20 +235,19 @@ class EditAppointmentActivity : BaseActivity() {
 
 //                클릭된 좌표 latLng -> 카메라 이동 (정가운데) / 마커 찍기
 
-                val cameraUpdate = CameraUpdate.scrollTo( latLng )
-                naverMap.moveCamera( cameraUpdate )
+                val cameraUpdate = CameraUpdate.scrollTo(latLng)
+                naverMap.moveCamera(cameraUpdate)
 
 //                선택 한 위치를 멤버변수에 담아두자.
                 mSelectedLatLng = latLng
 
 //                선택한 위치를 보여줄 마커도 (만들어진게 없다면 새로) 생성.
-                if ( mSelectedMarker == null ) {
+                if (mSelectedMarker == null) {
                     mSelectedMarker = Marker()
                 }
 
                 mSelectedMarker!!.position = latLng
                 mSelectedMarker!!.map = naverMap
-
 
 
 //                하나의 지점 (본인 집-startingPoint) 에서 -> 클릭한 지점 (latLng) 까지 선 긋기.
@@ -252,7 +257,8 @@ class EditAppointmentActivity : BaseActivity() {
 //                출발지 ~ 도착지까지의 대중교통 정거장 목록을 위경도 추출.
 //                ODSay 라이브러리 설치 => API 활용.
 
-                val myODsayService = ODsayService.init(mContext, resources.getString(R.string.odsay_key))
+                val myODsayService =
+                    ODsayService.init(mContext, resources.getString(R.string.odsay_key))
 
                 myODsayService.requestSearchPubTransPath(
                     startingPoint.longitude.toString(),
@@ -267,6 +273,37 @@ class EditAppointmentActivity : BaseActivity() {
                         override fun onSuccess(p0: ODsayData?, p1: API?) {
                             val jsonObj = p0!!.json
                             Log.d("길찾기응답", jsonObj.toString())
+
+//                            출발지 ~ 지하철역 (or 버스정거장) 좌표들 ~ 도착지 좌표 목록으로 설정.
+
+                            val transCoords = ArrayList<LatLng>()
+
+//                            출발지를 첫 좌표로 등록
+                            transCoords.add(startingPoint)
+
+//                            지하철 역 등 좌표들 등록 (파싱 - 반복)
+
+
+//                            도착지를 마지막 좌표로 등록
+                            transCoords.add(latLng)
+
+//                            지도에 선 그려주기
+
+//                           선이 그어질 경로 (여러 지점의 연결로 표현)
+
+//                           PathOverlay() 선 긋는 객체 생성. => 지도에 클릭될때마다 새로 생성됨. => 선도 하나씩 새로 그어짐.
+//                           val path = PathOverlay()
+
+//                            mPath 변수가 null 상태라면? 새 객체 만들어서 채워줌
+                            if (mPath == null) {
+                                mPath = PathOverlay()
+                            }
+
+                            mPath!!.coords = transCoords
+
+                            mPath!!.map = naverMap
+
+
                         }
 
                         override fun onError(p0: Int, p1: String?, p2: API?) {
@@ -280,24 +317,6 @@ class EditAppointmentActivity : BaseActivity() {
 
                 )
 
-
-//                선이 그어질 경로 (여러 지점의 연결로 표현)
-
-//                PathOverlay() 선 긋는 객체 생성. => 지도에 클릭될때마다 새로 생성됨. => 선도 하나씩 새로 그어짐.
-//                val path = PathOverlay()
-
-//                mPath 변수가 null 상태라면? 새 객체 만들어서 채워줌
-                if (mPath == null) {
-                    mPath = PathOverlay()
-                }
-
-                mPath!!.coords = arrayListOf(
-                    startingPoint,
-                    LatLng( 37.622, 126.941 ),
-                    latLng
-                )
-
-                mPath!!.map = naverMap
 
             }
 
