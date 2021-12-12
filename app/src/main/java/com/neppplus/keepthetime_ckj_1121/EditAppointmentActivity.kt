@@ -21,6 +21,7 @@ import com.odsay.odsayandroidsdk.OnResultCallbackListener
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -97,6 +98,22 @@ class EditAppointmentActivity : BaseActivity() {
 
                 override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
 //                    검색 결과 돌아옴 => 분석 (JSON 파싱) / UI 반영
+
+                    val jsonObj =  JSONObject( response.body()!!.string() )
+
+                    Log.d("검색결과응답", jsonObj.toString())
+
+                    val documentsArr = jsonObj.getJSONArray("documents")
+
+                    for (i  in 0 until  documentsArr.length()) {
+
+                        val documentObj  =  documentsArr.getJSONObject(i)
+
+                        Log.d("검색결과아이템",  documentObj.toString())
+
+                    }
+
+
                 }
 
             })
