@@ -293,7 +293,27 @@ class EditAppointmentActivity : BaseActivity() {
                                 val firstPath = pathArr.getJSONObject(0)
                                 Log.d("첫번째추천경로", firstPath.toString())
 
+                                val subPathArr = firstPath.getJSONArray("subPath")
 
+//                                모든 세부경로 반복 파싱
+                                for ( i  in  0  until  subPathArr.length()) {
+
+                                    val subPathObj = subPathArr.getJSONObject(i)
+
+//                                    정거장 목록 - passStopList가 있을때만 내부 파싱.
+
+                                    if ( !subPathObj.isNull("passStopList") ) {
+
+                                        val passStopListObj = subPathObj.getJSONObject("passStopList")
+
+                                        val stationsArr = passStopListObj.getJSONArray("stations")
+
+                                        Log.d("정거장목록", stationsArr.toString())
+
+                                    }
+
+
+                                }
 
                             }
 
