@@ -81,7 +81,8 @@ class EditAppointmentActivity : BaseActivity() {
 //            1. 어느 주소로 가야하는가? URL
 //            2. 어떤 파라미터? query => URL을 만들때 같이 만들자.
 
-            val url = HttpUrl.parse("https://dapi.kakao.com/v2/local/search/keyword.json")!!.newBuilder()
+            val url =
+                HttpUrl.parse("https://dapi.kakao.com/v2/local/search/keyword.json")!!.newBuilder()
             url.addEncodedQueryParameter("query", inputPlace)
 
             val urlString = url.toString()
@@ -90,7 +91,7 @@ class EditAppointmentActivity : BaseActivity() {
 
 //            3. 1+2+메쏘드+헤더 종합 => Request 만들기
             val request = Request.Builder()
-                .url( urlString )
+                .url(urlString)
                 .get()
                 .header("Authorization", "KakaoAK ${resources.getString(R.string.kakao_api_key)}")
                 .build()
@@ -106,7 +107,7 @@ class EditAppointmentActivity : BaseActivity() {
                 override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
 //                    검색 결과 돌아옴 => 분석 (JSON 파싱) / UI 반영
 
-                    val jsonObj =  JSONObject( response.body()!!.string() )
+                    val jsonObj = JSONObject(response.body()!!.string())
 
                     Log.d("검색결과응답", jsonObj.toString())
 
@@ -116,17 +117,17 @@ class EditAppointmentActivity : BaseActivity() {
 
                     val placeList = ArrayList<PlaceData>()
 
-                    for (i  in 0 until  documentsArr.length()) {
+                    for (i in 0 until documentsArr.length()) {
 
-                        val documentObj  =  documentsArr.getJSONObject(i)
+                        val documentObj = documentsArr.getJSONObject(i)
 
-                        Log.d("검색결과아이템",  documentObj.toString())
+                        Log.d("검색결과아이템", documentObj.toString())
 
                         val placeName = documentObj.getString("place_name")
                         val lat = documentObj.getString("y").toDouble()
                         val lng = documentObj.getString("x").toDouble()
 
-                        val placeData = PlaceData( placeName, lat, lng )
+                        val placeData = PlaceData(placeName, lat, lng)
                         placeList.add(placeData)
 
                     }
@@ -143,10 +144,12 @@ class EditAppointmentActivity : BaseActivity() {
 
                         val alert = AlertDialog.Builder(mContext)
 
-                        val customView = LayoutInflater.from(mContext).inflate(R.layout.my_custom_alert_select_place, null)
+                        val customView = LayoutInflater.from(mContext)
+                            .inflate(R.layout.my_custom_alert_select_place, null)
 
 //                        커스텀뷰 안의 리싸이클러뷰 추출
-                        val placeSelectRecyclerView = customView.findViewById<RecyclerView>(R.id.placeSelectRecyclerView)
+                        val placeSelectRecyclerView =
+                            customView.findViewById<RecyclerView>(R.id.placeSelectRecyclerView)
 
 //                        리싸이클러뷰에, placeList에 담긴 장소목록을 표시하자.
 
@@ -157,34 +160,32 @@ class EditAppointmentActivity : BaseActivity() {
                         alert.setTitle("약속 장소 선택")
 //                        alert.setMessage("정말 ~~ ?")
 
-                        alert.setView( customView )
+                        alert.setView(customView)
 
 
 //                        열린 경고창 화면 (dialog) 을 변수에 담아두고 -> 코드로 닫아주자.
                         val dialog = alert.show()
 
 //                        만든 리싸이클러 어댑터의 변수로 들어있는 onItemClick 기능 활용.
-                        placeAdapter.onItemClickListener = object : PlaceSelectRecyclerAdapter.OnItemClickListener {
-                            override fun onItemClick(data: PlaceData) {
+                        placeAdapter.onItemClickListener =
+                            object : PlaceSelectRecyclerAdapter.OnItemClickListener {
+                                override fun onItemClick(data: PlaceData) {
 
 //                                  임시 기능 : 토스트로 가게 이름 출력
 //                                Toast.makeText(mContext, data.placeName, Toast.LENGTH_SHORT).show()
 
 //                                실제 기능 :  장소를 선택한곳으로 지정하기.
 
-                                setPlaceDataToNaverMap(data)
+                                    setPlaceDataToNaverMap(data)
 
 //                                추가기능 : 열려있는 (show로 나타난) 팝업창 닫기 =>  dialog변수에 담긴 화면 닫기.
 
-                                dialog.dismiss()
+                                    dialog.dismiss()
 
 
-
+                                }
 
                             }
-
-                        }
-
 
 
                     }
@@ -441,21 +442,22 @@ class EditAppointmentActivity : BaseActivity() {
                                 val subPathArr = firstPath.getJSONArray("subPath")
 
 //                                모든 세부경로 반복 파싱
-                                for ( i  in  0  until  subPathArr.length()) {
+                                for (i in 0 until subPathArr.length()) {
 
                                     val subPathObj = subPathArr.getJSONObject(i)
 
 //                                    정거장 목록 - passStopList가 있을때만 내부 파싱.
 
-                                    if ( !subPathObj.isNull("passStopList") ) {
+                                    if (!subPathObj.isNull("passStopList")) {
 
-                                        val passStopListObj = subPathObj.getJSONObject("passStopList")
+                                        val passStopListObj =
+                                            subPathObj.getJSONObject("passStopList")
 
                                         val stationsArr = passStopListObj.getJSONArray("stations")
 
                                         Log.d("정거장목록", stationsArr.toString())
 
-                                        for ( j in   0 until  stationsArr.length()  ) {
+                                        for (j in 0 until stationsArr.length()) {
                                             val stationObj = stationsArr.getJSONObject(j)
 
 //                                            정거장의 x, y => 지도 표시 경도(lng) , 위도(lat)
@@ -464,7 +466,7 @@ class EditAppointmentActivity : BaseActivity() {
                                             val lng = stationObj.getString("x").toDouble()
 
 //                                            네이버 지도에서 사용할 위치 객체로 변환
-                                            val stationLatLng = LatLng( lat, lng )
+                                            val stationLatLng = LatLng(lat, lng)
 
 //                                            경로에서 -> 표시할 중간 좌표로 추가 등록.
 
@@ -560,11 +562,158 @@ class EditAppointmentActivity : BaseActivity() {
 
 //    장소를 선택하면 => 지도에 반영해주는 함수
 
-    fun setPlaceDataToNaverMap( placeData: PlaceData ) {
+    fun setPlaceDataToNaverMap(placeData: PlaceData) {
 
 //        약속장소 입력값 변경
 
-        binding.edtPlace.setText( placeData.placeName )
+        binding.edtPlace.setText(placeData.placeName)
+
+        binding.naverMapView.getMapAsync {
+
+            val naverMap = it
+
+
+//            장소데이터 기반 -> 네이버 위치 객체로 가공
+            val latLng = LatLng( placeData.latitude,  placeData.longitude )
+
+//                클릭된 좌표 latLng -> 카메라 이동 (정가운데) / 마커 찍기
+
+            val cameraUpdate = CameraUpdate.scrollTo(latLng)
+            naverMap.moveCamera(cameraUpdate)
+
+//                선택 한 위치를 멤버변수에 담아두자.
+            mSelectedLatLng = latLng
+
+//                선택한 위치를 보여줄 마커도 (만들어진게 없다면 새로) 생성.
+            if (mSelectedMarker == null) {
+                mSelectedMarker = Marker()
+            }
+
+            mSelectedMarker!!.position = latLng
+            mSelectedMarker!!.map = naverMap
+
+
+//                하나의 지점 (본인 집-startingPoint) 에서 -> 클릭한 지점 (latLng) 까지 선 긋기.
+
+            val startingPoint = LatLng(37.61275604060842, 126.9300471949015)
+
+//                출발지 ~ 도착지까지의 대중교통 정거장 목록을 위경도 추출.
+//                ODSay 라이브러리 설치 => API 활용.
+
+            val myODsayService =
+                ODsayService.init(mContext, resources.getString(R.string.odsay_key))
+
+            myODsayService.requestSearchPubTransPath(
+                startingPoint.longitude.toString(),
+                startingPoint.latitude.toString(),
+                latLng.longitude.toString(),
+                latLng.latitude.toString(),
+                null,
+                null,
+                null,
+
+                object : OnResultCallbackListener {
+                    override fun onSuccess(p0: ODsayData?, p1: API?) {
+                        val jsonObj = p0!!.json
+                        Log.d("길찾기응답", jsonObj.toString())
+
+//                            출발지 ~ 지하철역 (or 버스정거장) 좌표들 ~ 도착지 좌표 목록으로 설정.
+
+                        val transCoords = ArrayList<LatLng>()
+
+//                            출발지를 첫 좌표로 등록
+                        transCoords.add(startingPoint)
+
+//                            지하철 역 등 좌표들 등록 (파싱 - 반복)
+
+                        val resultObj = jsonObj.getJSONObject("result")
+
+                        val pathArr = resultObj.getJSONArray("path")
+
+//                            첫번째 경로만 활용 예정.
+                        if (pathArr.length() > 0) {
+
+                            val firstPath = pathArr.getJSONObject(0)
+                            Log.d("첫번째추천경로", firstPath.toString())
+
+                            val subPathArr = firstPath.getJSONArray("subPath")
+
+//                                모든 세부경로 반복 파싱
+                            for (i in 0 until subPathArr.length()) {
+
+                                val subPathObj = subPathArr.getJSONObject(i)
+
+//                                    정거장 목록 - passStopList가 있을때만 내부 파싱.
+
+                                if (!subPathObj.isNull("passStopList")) {
+
+                                    val passStopListObj = subPathObj.getJSONObject("passStopList")
+
+                                    val stationsArr = passStopListObj.getJSONArray("stations")
+
+                                    Log.d("정거장목록", stationsArr.toString())
+
+                                    for (j in 0 until stationsArr.length()) {
+                                        val stationObj = stationsArr.getJSONObject(j)
+
+//                                            정거장의 x, y => 지도 표시 경도(lng) , 위도(lat)
+
+                                        val lat = stationObj.getString("y").toDouble()
+                                        val lng = stationObj.getString("x").toDouble()
+
+//                                            네이버 지도에서 사용할 위치 객체로 변환
+                                        val stationLatLng = LatLng(lat, lng)
+
+//                                            경로에서 -> 표시할 중간 좌표로 추가 등록.
+
+                                        transCoords.add(stationLatLng)
+
+
+                                    }
+
+                                }
+
+
+                            }
+
+                        }
+
+
+//                            도착지를 마지막 좌표로 등록
+                        transCoords.add(latLng)
+
+//                            지도에 선 그려주기
+
+//                           선이 그어질 경로 (여러 지점의 연결로 표현)
+
+//                           PathOverlay() 선 긋는 객체 생성. => 지도에 클릭될때마다 새로 생성됨. => 선도 하나씩 새로 그어짐.
+//                           val path = PathOverlay()
+
+//                            mPath 변수가 null 상태라면? 새 객체 만들어서 채워줌
+                        if (mPath == null) {
+                            mPath = PathOverlay()
+                        }
+
+                        mPath!!.coords = transCoords
+
+                        mPath!!.map = naverMap
+
+
+                    }
+
+                    override fun onError(p0: Int, p1: String?, p2: API?) {
+
+                        Log.d("길찾기에러", p1.toString())
+
+                    }
+
+
+                }
+
+            )
+
+
+        }
 
 
     }
