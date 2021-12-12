@@ -10,11 +10,13 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.PathOverlay
+import com.neppplus.keepthetime_ckj_1121.adatpers.PlaceSelectRecyclerAdapter
 import com.neppplus.keepthetime_ckj_1121.databinding.ActivityEditAppointmentBinding
 import com.neppplus.keepthetime_ckj_1121.datas.BasicResponse
 import com.neppplus.keepthetime_ckj_1121.datas.PlaceData
@@ -147,6 +149,10 @@ class EditAppointmentActivity : BaseActivity() {
                         val placeSelectRecyclerView = customView.findViewById<RecyclerView>(R.id.placeSelectRecyclerView)
 
 //                        리싸이클러뷰에, placeList에 담긴 장소목록을 표시하자.
+
+                        val placeAdapter = PlaceSelectRecyclerAdapter(mContext, placeList)
+                        placeSelectRecyclerView.adapter = placeAdapter
+                        placeSelectRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
                         alert.setTitle("약속 장소 선택")
 //                        alert.setMessage("정말 ~~ ?")
