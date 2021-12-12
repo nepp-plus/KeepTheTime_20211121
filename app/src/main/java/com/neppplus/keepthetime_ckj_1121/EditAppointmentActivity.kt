@@ -310,6 +310,24 @@ class EditAppointmentActivity : BaseActivity() {
 
                                         Log.d("정거장목록", stationsArr.toString())
 
+                                        for ( j in   0 until  stationsArr.length()  ) {
+                                            val stationObj = stationsArr.getJSONObject(j)
+
+//                                            정거장의 x, y => 지도 표시 경도(lng) , 위도(lat)
+
+                                            val lat = stationObj.getString("y").toDouble()
+                                            val lng = stationObj.getString("x").toDouble()
+
+//                                            네이버 지도에서 사용할 위치 객체로 변환
+                                            val stationLatLng = LatLng( lat, lng )
+
+//                                            경로에서 -> 표시할 중간 좌표로 추가 등록.
+
+                                            transCoords.add(stationLatLng)
+
+
+                                        }
+
                                     }
 
 
