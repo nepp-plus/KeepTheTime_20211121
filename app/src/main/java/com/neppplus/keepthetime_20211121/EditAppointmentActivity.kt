@@ -13,6 +13,7 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.overlay.PathOverlay
 import com.neppplus.keepthetime_20211121.databinding.ActivityEditAppointmentBinding
 import com.neppplus.keepthetime_20211121.datas.BasicResponse
 import retrofit2.Call
@@ -238,9 +239,23 @@ class EditAppointmentActivity : BaseActivity() {
                 mSelectedMarker!!.position = latLng
                 mSelectedMarker!!.map = naverMap
 
+//                하나의 지점 (본인 집-startingPoint) 에서 -> 클릭한 지점 (latLng) 까지 선 긋기.
 
+                val startingPoint = LatLng(37.61275604060842, 126.9300471949015)
+
+//                선이 그어질 경로 (여러 지점의 연결로 표현)
+
+                val path = PathOverlay()
+
+                path.coords = arrayListOf(
+                    startingPoint,
+                    latLng
+                )
+
+                path.map = naverMap
 
             }
+
 
         }
 
