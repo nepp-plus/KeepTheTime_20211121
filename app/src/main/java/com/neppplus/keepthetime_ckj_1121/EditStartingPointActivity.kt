@@ -3,6 +3,7 @@ package com.neppplus.keepthetime_ckj_1121
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
 import com.neppplus.keepthetime_ckj_1121.databinding.ActivityEditStartingPointBinding
 
@@ -47,6 +48,13 @@ class EditStartingPointActivity : BaseActivity() {
 
                 mSelectedMarker!!.position = latLng
                 mSelectedMarker!!.map =  naverMap
+
+
+//                클릭한 위치 (latLng)로 카메라 이동 => 마커가 가운데 위치.
+
+                val cameraUpdate = CameraUpdate.scrollTo( latLng )
+                naverMap.moveCamera( cameraUpdate )
+
 
             }
 
