@@ -91,4 +91,17 @@ interface ServerAPIService {
     fun getRequestMyInfo() : Call<BasicResponse>
 
 
+//    내 출발 장소 등록하기
+
+    @FormUrlEncoded
+    @POST("/user/place")
+    fun postRequestAddStartingPoint(
+        @Field("name") name: String,
+        @Field("latitude") lat: Double,
+        @Field("longtitude") lng: Double,
+        @Field("is_primary") isPrimary: Boolean,
+    ) : Call<BasicResponse>
+
+
+
 }

@@ -25,6 +25,12 @@ class EditStartingPointActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        binding.btnSaveStartingPoint.setOnClickListener {
+
+
+
+        }
+
     }
 
     override fun setValues() {
