@@ -10,6 +10,7 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.overlay.PathOverlay
 import com.neppplus.keepthetime_ckj_1121.databinding.ActivityViewPlaceMapBinding
 import com.neppplus.keepthetime_ckj_1121.datas.ScheduleData
@@ -110,6 +111,14 @@ class ViewPlaceMapActivity : BaseActivity() {
 //            or 본인 집 좌표 직접 출발지 지정
 
             val startingPoint = LatLng(  mScheduleData.startLatitude, mScheduleData.startLongitude  )
+
+//            출발지 좌표 이용 => 출발지 표시 마커 별도 추가
+
+            val startingPointMarker = Marker()
+            startingPointMarker.position = startingPoint
+            startingPointMarker.icon = OverlayImage.fromResource(R.drawable.red_marker)
+            startingPointMarker.map = naverMap
+
 
 //            오디세이 라이브러리로 -> 대중교통 경로 API 호출
 
