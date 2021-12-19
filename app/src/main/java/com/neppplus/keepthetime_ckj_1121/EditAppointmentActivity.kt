@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.overlay.PathOverlay
 import com.neppplus.keepthetime_ckj_1121.adatpers.PlaceSelectRecyclerAdapter
 import com.neppplus.keepthetime_ckj_1121.adatpers.StartingPointSpinnerAdapter
@@ -53,6 +54,9 @@ class EditAppointmentActivity : BaseActivity() {
     var mSelectedLatLng: LatLng? = null
     var mSelectedMarker: Marker? = null
 
+//    출발지를 보여줄 마커
+    var mStartingPointMarker: Marker? = null
+
     var mPath: PathOverlay? = null
 
 //    서버에서 받아오는 출발지 목록을 담아줄 ArrayList
@@ -84,6 +88,8 @@ class EditAppointmentActivity : BaseActivity() {
 //                position (p2) 변수가, 선택한 아이템이 몇번째 아이템인지 알려주는 역할.
 
                 mSelectedStartingPoint =  mStartingPointList[position]
+
+//                선택한 출발지의 위치를 커스텀 마커로 띄워보자.
 
 
 //                Toast.makeText(mContext, selectedStartingPoint.placeName, Toast.LENGTH_SHORT).show()
@@ -547,6 +553,15 @@ class EditAppointmentActivity : BaseActivity() {
             mSelectedMarker!!.position = latLng
             mSelectedMarker!!.map = naverMap
 
+//            출발지를 보여줄 마커도 (만들어진게 없다면) 새로 생성.
+
+            if (mStartingPointMarker == null) {
+                mStartingPointMarker = Marker()
+            }
+
+            mStartingPointMarker!!.position = LatLng( mSelectedStartingPoint.latitude, mSelectedStartingPoint.longitude )
+            mStartingPointMarker!!.icon = OverlayImage.fromResource(R.drawable.red_marker)
+            mStartingPointMarker!!.map = naverMap
 
 //                하나의 지점 (본인 집-startingPoint) 에서 -> 클릭한 지점 (latLng) 까지 선 긋기.
 
