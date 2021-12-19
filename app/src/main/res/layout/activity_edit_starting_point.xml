@@ -6,7 +6,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:padding="20dp"
         tools:context=".EditStartingPointActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="장소 이름" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="장소 이름 입력"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="실제 위치 선택"
+            android:layout_marginTop="10dp"/>
+
+
 
     </LinearLayout>
 </layout>
