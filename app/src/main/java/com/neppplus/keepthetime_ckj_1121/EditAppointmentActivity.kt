@@ -94,7 +94,15 @@ class EditAppointmentActivity : BaseActivity() {
                 if (mSelectedLatLng != null) {
 
 //                    도착지가 있는 상황. => 장소를 가지고 새로 선을 그려주자.
-//                    setPlaceDataToNaverMap()
+
+//                    도착지 정보를 가지고 => 새로운 PlaceData 객체를 만들어서 => 지도에 세팅하게 해주자.
+//                    변경된 출발지 + 기존의 도착지 로 다시 그리도록.
+
+                    val inputPlaceName = binding.edtPlace.text.toString()
+
+                    val newPlaceData = PlaceData(0, inputPlaceName, mSelectedLatLng!!.latitude, mSelectedLatLng!!.longitude)
+
+                    setPlaceDataToNaverMap(newPlaceData)
 
                 }
 
