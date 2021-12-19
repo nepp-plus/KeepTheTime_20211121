@@ -10,7 +10,11 @@ class DataResponse(
     var users: List<UserData>,
 
 //    약속 목록 API 파싱에서 활용.
-    var appointments: List<ScheduleData>
+    var appointments: List<ScheduleData>,
+
+//    출발지 목록 API 파싱에서 활용.
+    var places: List<PlaceData>
+
 
 ) {
 }

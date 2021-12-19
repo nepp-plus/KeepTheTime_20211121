@@ -407,7 +407,10 @@ class EditAppointmentActivity : BaseActivity() {
 
                 if (response.isSuccessful) {
 
+                    val br = response.body()!!
 
+                    mStartingPointList.clear()
+                    mStartingPointList.addAll( br.data.places )
 
                 }
 
