@@ -208,6 +208,10 @@ class ViewPlaceMapActivity : BaseActivity() {
 
 //                                말풍선에 들어갈 xml 그리고 => inflate => getContentView 함수의 결과로 지정.
 
+                                val view = LayoutInflater.from(mContext).inflate(R.layout.place_info_window_view, null)
+
+                                return view
+
                             }
 
                         }
