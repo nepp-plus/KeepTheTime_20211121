@@ -2,6 +2,8 @@ package com.neppplus.keepthetime_ckj_1121
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -199,9 +201,13 @@ class ViewPlaceMapActivity : BaseActivity() {
 
 
 //                        말풍선의 내용을, 경로찾기가 끝나고 나서 세팅.
-                        infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext) {
-                            override fun getText(p0: InfoWindow): CharSequence {
-                                return mScheduleData.place
+//                        커스텀 뷰를 => 말풍선 내에 띄워보자.
+//                        네이버 지도 기능 (설명 X) + 안드로이드 코딩 지식 활용 => 응용
+                        infoWindow.adapter = object : InfoWindow.DefaultViewAdapter(mContext) {
+                            override fun getContentView(p0: InfoWindow): View {
+
+//                                말풍선에 들어갈 xml 그리고 => inflate => getContentView 함수의 결과로 지정.
+
                             }
 
                         }
