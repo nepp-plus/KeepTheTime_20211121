@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -209,6 +210,9 @@ class ViewPlaceMapActivity : BaseActivity() {
 //                                말풍선에 들어갈 xml 그리고 => inflate => getContentView 함수의 결과로 지정.
 
                                 val view = LayoutInflater.from(mContext).inflate(R.layout.place_info_window_view, null)
+
+                                val txtPlaceName = view.findViewById<TextView>(R.id.txtPlaceName)
+                                txtPlaceName.text = mScheduleData.place
 
                                 return view
 
