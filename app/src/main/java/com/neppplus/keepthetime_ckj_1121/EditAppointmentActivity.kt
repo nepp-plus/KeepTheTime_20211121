@@ -405,6 +405,9 @@ class EditAppointmentActivity : BaseActivity() {
             apiService.postRequestAppointment(
                 inputTitle,
                 finalDateTimeStr,
+                mSelectedStartingPoint.placeName,
+                mSelectedStartingPoint.latitude,
+                mSelectedStartingPoint.longitude,
                 inputPlace,
                 mSelectedLatLng!!.latitude,
                 mSelectedLatLng!!.longitude
