@@ -214,6 +214,39 @@ class ViewPlaceMapActivity : BaseActivity() {
                                 val txtPlaceName = view.findViewById<TextView>(R.id.txtPlaceName)
                                 txtPlaceName.text = mScheduleData.place
 
+                                val txtRequireTime = view.findViewById<TextView>(R.id.txtRequireTime)
+
+//                                길찾기 API가 알려주는 (jsonObj안에 저장됨) 예상시간 (추가 파싱)을 가지고 문구로 설정.
+//                                모든 경로중 0번째 경로의 도착 소요 시간 파싱.
+
+                                val firstPath = pathArr.getJSONObject(0)
+
+//                                첫 경로의 정보 사항
+                                val infoObj = firstPath.getJSONObject("info")
+                                val totalTime = infoObj.getInt("totalTime")
+
+//                                60분 넘느냐 아니냐 로 따로 문구 세팅.
+
+                                if (totalTime >= 60) {
+
+//                                    1시간 이상 => ?시간 ?분 소요
+//                                      150분 : 2시간 30분
+
+                                    val hour = totalTime / 60  // Int / Int는 무조건 정수로 나옴. => 몫을 구해주는 효과.
+                                    val minute = totalTime % 60
+
+                                    txtRequireTime.text = "${hour}시간 ${minute}분 소요"
+
+                                }
+                                else {
+
+//                                    1시간 이내 => 분만 표기.
+                                    txtRequireTime.text = "${totalTime}분 소요"
+
+                                }
+
+//                                txtRequireTime.text = ?
+
                                 return view
 
                             }
