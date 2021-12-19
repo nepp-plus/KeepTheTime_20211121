@@ -10,6 +10,8 @@ class EditStartingPointActivity : BaseActivity() {
 
     lateinit var binding: ActivityEditStartingPointBinding
 
+    var mSelectedMarker: Marker? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_starting_point)
@@ -36,10 +38,15 @@ class EditStartingPointActivity : BaseActivity() {
 
 //                클릭 될때마다 생성자 호출 => 매번 새 마커 그려주기.
 //                단 하나의 마커만 유지하자. => 아직 안그려졌을때만 생성하자.
+//                위치는 매번 클릭될때마다 설정하자. (EditAppointmentActivity 참고)
 
-                val marker = Marker()
-                marker.position = latLng
-                marker.map =  naverMap
+                if (mSelectedMarker == null) {
+//                    멤버변수로 만들어둔 마커가 null일때만 생성. => 하나의 객체를 유지.
+                    mSelectedMarker = Marker()
+                }
+
+                mSelectedMarker!!.position = latLng
+                mSelectedMarker!!.map =  naverMap
 
             }
 
