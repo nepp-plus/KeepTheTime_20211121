@@ -52,11 +52,18 @@ class ScheduleListFragment : BaseFragment() {
 
     override fun setValues() {
 
-        getScheduleListFromServer()
-
         mScheduleAdapter = ScheduleRecyclerAdapter( mContext, mScheduleList )
         binding.appointmentRecyclerView.adapter = mScheduleAdapter
         binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
+
+    }
+
+//    생명주기 - onResume 이 화면으로 돌아올때마다 실행되는 함수.
+
+    override fun onResume() {
+        super.onResume()
+
+        getScheduleListFromServer()
 
     }
 
