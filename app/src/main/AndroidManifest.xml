@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KeepTheTime_20211121">
         <activity
+            android:name=".EditStartingPointActivity"
+            android:exported="true" />
+        <activity
             android:name=".StartingPointListManageActivity"
             android:exported="true" />
         <activity
