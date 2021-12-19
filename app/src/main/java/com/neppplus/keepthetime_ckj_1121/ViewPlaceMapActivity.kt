@@ -109,15 +109,15 @@ class ViewPlaceMapActivity : BaseActivity() {
 //            출발지 정보 ~ 도착지 API 호출
 //            or 본인 집 좌표 직접 출발지 지정
 
-            val startingPoint = LatLng(  37.61324219259818, 126.92932036898978  )
+            val startingPoint = LatLng(  mScheduleData.startLatitude, mScheduleData.startLongitude  )
 
 //            오디세이 라이브러리로 -> 대중교통 경로 API 호출
 
             val myODsayService = ODsayService.init(mContext, resources.getString(R.string.odsay_key))
 
             myODsayService.requestSearchPubTransPath(
-                126.92932036898978.toString(),
-                37.61324219259818.toString(),
+                mScheduleData.startLongitude.toString(),
+                mScheduleData.startLatitude.toString(),
                 mScheduleData.longitude.toString(),
                 mScheduleData.latitude.toString(),
                 null,
