@@ -3,6 +3,7 @@ package com.neppplus.keepthetime_ckj_1121
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -36,6 +37,25 @@ class EditStartingPointActivity : BaseActivity() {
         binding.btnSaveStartingPoint.setOnClickListener {
 
             val inputName = binding.edtPlaceName.text.toString()
+
+
+//            장소 이름이 2자 이상이어야 진행되도록.
+            if (inputName.length < 2) {
+
+                Toast.makeText(mContext, "장소 이름은 2자 이상으로 해주세요.", Toast.LENGTH_SHORT).show()
+
+                return@setOnClickListener
+            }
+
+//            지도에서 위치를 선택 했어야 진행되도록.
+//            mSelectedLatLng가 지금 시점에도 null이다 => 지도에서 위치선택 안하고 저장 버튼 눌렀다.
+            if ( mSelectedLatLng == null ) {
+
+                Toast.makeText(mContext, "지도에서 장소를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+
+            }
+
 
             apiService.postRequestAddStartingPoint(
                 inputName,
