@@ -55,6 +55,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="출발 장소 선택" />
+
+        <Spinner
+            android:id="@+id/startingPointSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="약속 장소" />
 
         <LinearLayout
