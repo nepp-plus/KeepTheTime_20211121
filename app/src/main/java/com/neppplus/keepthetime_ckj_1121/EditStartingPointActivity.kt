@@ -2,16 +2,24 @@ package com.neppplus.keepthetime_ckj_1121
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
 import com.neppplus.keepthetime_ckj_1121.databinding.ActivityEditStartingPointBinding
+import com.neppplus.keepthetime_ckj_1121.datas.BasicResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class EditStartingPointActivity : BaseActivity() {
 
     lateinit var binding: ActivityEditStartingPointBinding
 
     var mSelectedMarker: Marker? = null
+
+    var mSelectedLatLng: LatLng? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +35,28 @@ class EditStartingPointActivity : BaseActivity() {
 
         binding.btnSaveStartingPoint.setOnClickListener {
 
+            val inputName = binding.edtPlaceName.text.toString()
 
+            apiService.postRequestAddStartingPoint(
+                inputName,
+                mSelectedLatLng!!.latitude,
+                mSelectedLatLng!!.longitude,
+                true
+            ).enqueue( object : Callback<BasicResponse> {
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                    Log.d("연결실패", t.localizedMessage)
+
+                }
+
+            })
 
         }
 
@@ -60,6 +89,9 @@ class EditStartingPointActivity : BaseActivity() {
 
                 val cameraUpdate = CameraUpdate.scrollTo( latLng )
                 naverMap.moveCamera( cameraUpdate )
+
+//                선택된 위치를 서버에 보낼때 활용. 멤버변수에 선택된 위치를 저장.
+                mSelectedLatLng = latLng
 
 
             }

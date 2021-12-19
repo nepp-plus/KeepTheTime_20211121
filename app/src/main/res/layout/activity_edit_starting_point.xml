@@ -15,6 +15,7 @@
             android:text="장소 이름" />
 
         <EditText
+            android:id="@+id/edtPlaceName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="장소 이름 입력"

@@ -98,7 +98,7 @@ interface ServerAPIService {
     fun postRequestAddStartingPoint(
         @Field("name") name: String,
         @Field("latitude") lat: Double,
-        @Field("longtitude") lng: Double,
+        @Field("longitude") lng: Double,
         @Field("is_primary") isPrimary: Boolean,
     ) : Call<BasicResponse>
 
