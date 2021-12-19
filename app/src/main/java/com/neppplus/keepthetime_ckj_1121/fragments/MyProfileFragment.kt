@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.neppplus.keepthetime_ckj_1121.R
+import com.neppplus.keepthetime_ckj_1121.StartingPointListManageActivity
 import com.neppplus.keepthetime_ckj_1121.ViewFriendListActivity
 import com.neppplus.keepthetime_ckj_1121.databinding.FragmentMyProfileBinding
 import com.neppplus.keepthetime_ckj_1121.datas.BasicResponse
@@ -36,6 +37,13 @@ class MyProfileFragment : BaseFragment() {
     }
 
     override fun setupEvents() {
+
+        binding.btnStartingPointList.setOnClickListener {
+
+            val myIntent = Intent(mContext, StartingPointListManageActivity::class.java)
+            startActivity(myIntent)
+
+        }
 
         binding.btnFriendList.setOnClickListener {
 
