@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import com.neppplus.keepthetime_ckj_1121.R
 import com.neppplus.keepthetime_ckj_1121.datas.PlaceData
 
@@ -27,6 +28,11 @@ class StartingPointSpinnerAdapter(
 
         val row = tempRow!!
 
+        val data = mList[position]
+
+        val txtPlaceName = row.findViewById<TextView>(R.id.txtPlaceName)
+
+        txtPlaceName.text =  data.placeName
 
         return row
     }
