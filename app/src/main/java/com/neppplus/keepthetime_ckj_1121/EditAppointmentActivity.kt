@@ -5,6 +5,8 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.AdapterView
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
@@ -69,6 +71,27 @@ class EditAppointmentActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+//        스피너의 이벤트 처리.
+
+        binding.startingPointSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+
+//                position (p2) 변수가, 선택한 아이템이 몇번째 아이템인지 알려주는 역할.
+
+                val selectedStartingPoint =  mStartingPointList[position]
+
+
+                Toast.makeText(mContext, selectedStartingPoint.placeName, Toast.LENGTH_SHORT).show()
+
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                스피너에서 활용 하지 않음.
+            }
+
+        }
+
 
         binding.btnSearchPlace.setOnClickListener {
 
