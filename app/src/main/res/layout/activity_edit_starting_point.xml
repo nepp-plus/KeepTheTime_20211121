@@ -26,7 +26,11 @@
             android:text="실제 위치 선택"
             android:layout_marginTop="10dp"/>
 
-
+        <com.naver.maps.map.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="300dp" />
 
     </LinearLayout>
 </layout>
