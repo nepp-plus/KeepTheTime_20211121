@@ -10,6 +10,12 @@ class ScheduleData(
     var id: Int,
     var title: String,
     var datetime: Date,
+    @SerializedName("start_place")
+    var startPlace: String,
+    @SerializedName("start_latitude")
+    var startLatitude: Double,
+    @SerializedName("start_longitude")
+    var startLongitude: Double,
     var place: String,
     var latitude: Double,
     var longitude: Double,
