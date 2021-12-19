@@ -37,4 +37,27 @@ class StartingPointSpinnerAdapter(
         return row
     }
 
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+
+        var tempRow = convertView
+        if (tempRow == null) {
+
+//            돌려막기 할 만큼 충분한 row가 그려지지 않은 상태.
+//            mInflater 변수 대신, 바로 LayoutInflater.from 기능 활용
+            tempRow = LayoutInflater.from(mContext).inflate(R.layout.starting_point_list_item, null)
+
+        }
+
+        val row = tempRow!!
+
+        val data = mList[position]
+
+        val txtPlaceName = row.findViewById<TextView>(R.id.txtPlaceName)
+
+        txtPlaceName.text =  data.placeName
+
+        return row
+
+    }
+
 }
